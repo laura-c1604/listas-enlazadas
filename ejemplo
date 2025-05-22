@@ -1,58 +1,73 @@
 <?php
 
+// Clase que representa un nodo de la lista enlazada
 class nodo {
 
-   public $dato;
-   public $siguiente;
+   public $dato;         // Valor que almacena el nodo
+   public $siguiente;    // Puntero al siguiente nodo (puede ser null)
 
+   // Constructor que inicializa el nodo con un dato
    public function __construct($dato) {
-     $this->dato = $dato;
-     $this->siguiente = null;
+     $this->dato = $dato;        // Asigna el valor recibido
+     $this->siguiente = null;    // Inicialmente no apunta a ningún otro nodo
    }
 }
 
+// Clase que representa la lista enlazada
 class listaenlazada {
 
-  public $cabeza;
+  public $cabeza;   // Puntero al primer nodo de la lista (la "cabeza")
 
+  // Constructor que inicializa la lista vacía
   public function __construct() {
-    $this->cabeza = null;  
+    $this->cabeza = null;  // Al principio no hay nodos
   }
 
+  // Método para insertar un nuevo dato al inicio de la lista
   public function insertar($dato) {
-    $nuevonodo = new nodo($dato);
-    $nuevonodo->siguiente = $this->cabeza;
-    $this->cabeza = $nuevonodo;
+    $nuevonodo = new nodo($dato);         // Crea un nuevo nodo con el dato
+    $nuevonodo->siguiente = $this->cabeza; // El nuevo nodo apunta al nodo que era la cabeza
+    $this->cabeza = $nuevonodo;            // Ahora el nuevo nodo es la cabeza de la lista
   }
 
+  // Método para imprimir la lista como una lista HTML <ul>
   public function imprimirHTML() {
-    $actual = $this->cabeza;
-    echo "<ul>";
-    while ($actual != null) {
-      echo "<li>" . $actual->dato . "</li>";
-      $actual = $actual->siguiente;
+    $actual = $this->cabeza;     // Comenzamos desde la cabeza de la lista
+    echo "<ul>";                 // Abrimos una lista HTML
+    while ($actual != null) {    // Mientras haya nodos por recorrer
+      echo "<li>" . $actual->dato . "</li>";  // Imprimimos el dato del nodo
+      $actual = $actual->siguiente;           // Avanzamos al siguiente nodo
     }
-    echo "</ul>";
+    echo "</ul>";                // Cerramos la lista HTML
   }
 
+  // Método para buscar un dato en la lista
   public function buscar($dato) {
-    $actual = $this->cabeza;
-    while ($actual != null) {
-      if ($actual->dato == $dato) {
-        return true;
+    $actual = $this->cabeza;     // Comenzamos desde la cabeza
+    while ($actual != null) {    // Recorremos todos los nodos
+      if ($actual->dato == $dato) {  // Si el dato coincide
+        return true;                 // Lo encontramos
       }
-      $actual = $actual->siguiente;
+      $actual = $actual->siguiente;  // Seguimos buscando
     }
-    return false;
+    return false;  // Si llegamos al final sin encontrarlo, devolvemos false
   }
 }
 
+// Crear una nueva lista enlazada
 $lista = new listaenlazada();
 
-$lista->insertar("Tigre");
-$lista->insertar("Elefante");
-$lista->insertar("Jirafa");
+// Insertar algunos elementos en la lista
+$lista->insertar("Tigre");     // Este será el último (se inserta primero)
+$lista->insertar("Elefante");  // Se inserta antes de "Tigre"
+$lista->insertar("Jirafa");    // Se inserta antes de "Elefante"
 
+// La lista ahora es: Jirafa -> Elefante -> Tigre
+
+// Imprimir la lista como HTML
 $lista->imprimirHTML();
 
+
 ?>
+
+
